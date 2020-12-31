@@ -1,4 +1,7 @@
 import csv
+import sys
+
+
 def inventory_cost(filename):
     with open(filename) as fh:
         rows = csv.reader(fh)
@@ -10,5 +13,9 @@ def inventory_cost(filename):
             price = float(row[2])
             total += quant * price
     return total
-cost = inventory_cost("Data\inventory.csv")
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+else:
+    filename = "Data/inventory.csv"
+cost = inventory_cost(filename)
 print("Total cost is :", cost)
