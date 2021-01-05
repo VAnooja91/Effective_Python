@@ -4,17 +4,16 @@ import csv
 def read_inventory(filename):
     with open(filename) as fh:
         rows = csv.reader(fh)
-        headers = next(rows)
+        header = next(rows)
         invent = list()
 
-        for row in rows:
-            name = str(row[0])
-            quant = int(row[1])
-            price = float(row[2])
-            product = {"name": name, "quant": quant, "price": price}
-            invent.append(product)
+        for rowno, row in enumerate(rows, start=1):
+            prod = dict(zip(header, row))
+            prod['quant'] = int(prod["quant"])
+            prod['price'] = float(prod["price"])
+            invent.append(prod)
 
-        return invent
+    return invent
 
 
 def read_prices(filename):
