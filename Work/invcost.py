@@ -8,14 +8,14 @@ def inventory_cost(filename):
         header = next(rows)
 
         total = 0.0
-        for row in rows:
-            name = str(row[0])
+        for lineno, row in enumerate(rows, start=1):
+            record = dict(zip(header, row))
             try:
-                quant = int(row[1])
-                price = float(row[2])
+                quant = int(record['quant'])
+                price = float(record['price'])
                 total += quant * price
             except ValueError:
-                print("Bad row", row)
+                print("Row {0}: couldn't convert {1}".format(lineno, row))
 
     return total
 
