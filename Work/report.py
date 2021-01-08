@@ -53,21 +53,14 @@ def print_report(report):
         print(f'{name:>10s}{quant:>10d}{price:10.2f}{change:>10.2f}')
 
 
-inventory = read_inventory("Data/inventory.csv")
-latest_prices = read_prices("Data/prices.csv")
-report = make_report(inventory,latest_prices)
-print_report(report)
-
-# total_cost = 0.0
-# present_cost = 0.0
-#
-# for prod in inventory:
-#     total_cost += prod["quant"] * prod["price"]
-#     present_cost += prod["quant"] * latest_prices[prod["name"]]
-#
-# print("total price is: ", total_cost)
-# print("present value is: ", present_cost)
-# print("total Gain is: ", present_cost - total_cost)
+def inventory_report(inventory, latest_prices):
+    inv = read_inventory(inventory)
+    price = read_prices(latest_prices)
+    report = make_report(inv, price)
+    print_report(report)
 
 
+inventory = "Data/inventory.csv"
+latest_prices = "Data/prices.csv"
 
+inventory_report(inventory, latest_prices)
