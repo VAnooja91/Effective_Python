@@ -30,19 +30,44 @@ def read_prices(filename):
         return product
 
 
+def make_report(product,prices):
+    values = list()
+
+    for prod in product:
+        name = prod['name']
+        quant = prod['quant']
+        price = prod['price']
+        latest_price = prices[name]
+        values.append ((name,quant,latest_price,latest_price-price))
+
+    return values
+
+
+def print_report(report):
+    headers = ('Name', 'Quantity', 'prices', 'Change')
+    print('%10s %10s %10s %10s' % headers)
+    width = 10
+    n_cols = len(headers)
+    print(f"{'-' * width} " * n_cols)
+    for name, quant, price, change in report:
+        print(f'{name:>10s}{quant:>10d}{price:10.2f}{change:>10.2f}')
+
+
 inventory = read_inventory("Data/inventory.csv")
 latest_prices = read_prices("Data/prices.csv")
+report = make_report(inventory,latest_prices)
+print_report(report)
 
-total_cost = 0.0
-present_cost = 0.0
-
-for prod in inventory:
-    total_cost += prod["quant"] * prod["price"]
-    present_cost += prod["quant"] * latest_prices[prod["name"]]
-
-print("total price is: ", total_cost)
-print("present value is: ", present_cost)
-print("total Gain is: ", present_cost - total_cost)
+# total_cost = 0.0
+# present_cost = 0.0
+#
+# for prod in inventory:
+#     total_cost += prod["quant"] * prod["price"]
+#     present_cost += prod["quant"] * latest_prices[prod["name"]]
+#
+# print("total price is: ", total_cost)
+# print("present value is: ", present_cost)
+# print("total Gain is: ", present_cost - total_cost)
 
 
 
