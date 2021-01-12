@@ -11,8 +11,10 @@ def parse_csv(filename):
         for row in rows:
             if not row:
                 continue
-            data = dict(zip(headers, rows))
+            data = dict(zip(headers, row))
             records.append(data)
 
-        return records
+    return records
+
+
 
