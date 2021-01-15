@@ -2,6 +2,9 @@ import csv
 
 
 def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','):
+    if select and not has_headers:
+        raise RuntimeError("select arguments requires column names")
+
     with open(filename) as fh:
         rows = csv.reader(fh, delimiter=delimiter)
 
@@ -31,5 +34,4 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
             records.append(data)
 
     return records
-
 
