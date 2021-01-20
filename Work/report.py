@@ -1,36 +1,19 @@
 import csv
+from fileparse import parse_csv
 
 
 def read_inventory(filename):
-    with open(filename) as fh:
-        rows = csv.reader(fh)
-        header = next(rows)
-        invent = list()
-
-        for rowno, row in enumerate(rows, start=1):
-            prod = dict(zip(header, row))
-            prod['quant'] = int(prod["quant"])
-            prod['price'] = float(prod["price"])
-            invent.append(prod)
-
+    invent = parse_csv(filename, select=['name', 'quant', 'price'], types=[str, int, float])
     return invent
 
 
 def read_prices(filename):
-    with open(filename) as fh:
-        rows = csv.reader(fh)
-        product = dict()
-
-        for row in rows:
-            try:
-                product[row[0]] = float(row[1])
-            except IndexError:
-                continue
-
-        return product
+    pricelist = parse_csv(filename, types=[str, float], has_headers=False)
+    product = dict(pricelist)
+    return product
 
 
-def make_report(product,prices):
+def make_report(product, prices):
     values = list()
 
     for prod in product:
@@ -64,3 +47,4 @@ inventory = "Data/inventory.csv"
 latest_prices = "Data/prices.csv"
 
 inventory_report(inventory, latest_prices)
+
