@@ -1,10 +1,13 @@
 import csv
 
+# with open(filename) as fh:
+#     rows = csv.reader(fh, delimiter=delimiter)
 
-def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=',', silent_errors=True):
-    # if select and not has_headers:
-    #     raise RuntimeError("select arguments requires column names")
 
+def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
+
+    if select and not has_headers:
+        raise RuntimeError("select arguments requires column names")
     with open(filename) as fh:
         rows = csv.reader(fh, delimiter=delimiter)
 
@@ -28,8 +31,9 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
                 try:
                     row = [typefunc(val) for typefunc, val in zip(types, row)]
                 except ValueError as e:
-                    print("Row {}: couldn't convert {}".format(lineno, row))
-                    print("Row {}: Reason {}".format(lineno, e))
+                    if not silence_errors:
+                        print("Row {}: couldn't convert {}".format(lineno, row))
+                        print("Row {}: Reason {}".format(lineno, e))
                     continue
             if has_headers:
                 data = dict(zip(headers, row))
