@@ -43,8 +43,8 @@ def inventory_report(inventory, latest_prices):
     print_report(report)
 
 
-inventory = "Data/inventory.csv"
-latest_prices = "Data/prices.csv"
-
-inventory_report(inventory, latest_prices)
+if __name__ == "__main__":
+    inventory = "Data/inventory.csv"
+    latest_prices = "Data/prices.csv"
+    inventory_report(inventory, latest_prices)
 
