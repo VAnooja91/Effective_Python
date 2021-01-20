@@ -45,7 +45,7 @@ def inventory_report(inventory, latest_prices):
 
 def main(argv):
     if len(argv) != 3:
-        raise SystemExit(f'file:{argv[0]} ''inventory latest_prices')
+        raise SystemExit(f'Usage:{argv[0]} ''inventory latest_prices')
     inventory = argv[1]
     latest_prices = argv[2]
     inventory_report(inventory, latest_prices)
