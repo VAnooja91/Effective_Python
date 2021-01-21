@@ -3,13 +3,15 @@ from fileparse import parse_csv
 
 
 def read_inventory(filename):
-    invent = parse_csv(filename, select=['name', 'quant', 'price'], types=[str, int, float])
+    with open(filename) as FH:
+        invent = parse_csv(FH, select=['name', 'quant', 'price'], types=[str, int, float])
     return invent
 
 
 def read_prices(filename):
-    pricelist = parse_csv(filename, types=[str, float], has_headers=False)
-    product = dict(pricelist)
+    with open(filename) as FH:
+        pricelist = parse_csv(FH, types=[str, float], has_headers=False)
+        product = dict(pricelist)
     return product
 
 
@@ -21,7 +23,7 @@ def make_report(product, prices):
         quant = prod['quant']
         price = prod['price']
         latest_price = prices[name]
-        values.append ((name,quant,latest_price,latest_price-price))
+        values.append((name,quant,latest_price,latest_price-price))
 
     return values
 
