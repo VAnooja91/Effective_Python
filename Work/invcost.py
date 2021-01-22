@@ -6,8 +6,8 @@ def inventory_cost(filename):
     total = 0
     inventory = read_inventory(filename)
     for prod in inventory:
-        quant = prod['quant']
-        price = prod['price']
+        quant = prod.quant
+        price = prod.price
         total += quant * price
 
     return total
