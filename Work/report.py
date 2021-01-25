@@ -1,7 +1,7 @@
 import csv
 from fileparse import parse_csv
 from product import Product
-from tableformat import TableFormatter, TextTableFormatter
+from tableformat import TableFormatter, TextTableFormatter, CSVTableFormatter
 
 
 def read_inventory(filename):
@@ -43,7 +43,7 @@ def inventory_report(inventory, latest_prices):
     price = read_prices(latest_prices)
     report = make_report(inv, price)
 
-    formatter = TextTableFormatter()
+    formatter = CSVTableFormatter()
     print_report(report, formatter)
 
 
