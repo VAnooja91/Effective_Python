@@ -1,4 +1,3 @@
-import csv
 from fileparse import parse_csv
 from product import Product
 from tableformat import TableFormatter, TextTableFormatter, CSVTableFormatter
@@ -38,12 +37,16 @@ def print_report(report, formatter):
         formatter.row(rowdata)
 
 
-def inventory_report(inventory, latest_prices):
+def inventory_report(inventory, latest_prices, frmt='txt'):
     inv = read_inventory(inventory)
     price = read_prices(latest_prices)
     report = make_report(inv, price)
-
-    formatter = CSVTableFormatter()
+    if frmt == 'txt':
+        formatter = TextTableFormatter()
+    elif frmt == "csv":
+        formatter = CSVTableFormatter()
+    else:
+        raise RuntimeError("Unknown format {frmt}")
     print_report(report, formatter)
 
 
