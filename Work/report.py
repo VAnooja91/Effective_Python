@@ -1,6 +1,7 @@
 import csv
 from fileparse import parse_csv
 from product import Product
+from tableformat import TableFormatter
 
 
 def read_inventory(filename):
@@ -30,21 +31,19 @@ def make_report(product, prices):
     return values
 
 
-def print_report(report):
-    headers = ('Name', 'Quantity', 'prices', 'Change')
-    print('%10s %10s %10s %10s' % headers)
-    width = 10
-    n_cols = len(headers)
-    print(f"{'-' * width} " * n_cols)
+def print_report(report, formatter):
+    formatter.headings(['Name', 'Quantity', 'prices', 'Change'])
     for name, quant, price, change in report:
-        print(f'{name:>10s}{quant:>10d}{price:10.2f}{change:>10.2f}')
+        rowdata = [name, str(quant), f'{price:0.2f}', f'{change:0.2f}']
+        formatter.row(rowdata)
 
 
 def inventory_report(inventory, latest_prices):
     inv = read_inventory(inventory)
     price = read_prices(latest_prices)
     report = make_report(inv, price)
-    print_report(report)
+    formatter = TableFormatter()
+    print_report(report, formatter)
 
 
 def main(argv):
