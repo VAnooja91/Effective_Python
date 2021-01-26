@@ -40,3 +40,11 @@ class CSVTableFormatter(TableFormatter):
     def row(self, rowdata):
         print(','.join(rowdata))
 
+
+def create_formatter(name):
+    if name == 'txt':
+        return TextTableFormatter()
+    elif name == "csv":
+        return CSVTableFormatter()
+    else:
+        raise RuntimeError("Unknown format {frmt}")
