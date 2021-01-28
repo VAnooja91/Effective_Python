@@ -1,6 +1,6 @@
 from fileparse import parse_csv
 from product import Product
-from tableformat import TableFormatter, TextTableFormatter, CSVTableFormatter, create_formatter
+from tableformat import create_formatter, print_table
 
 
 def read_inventory(filename):

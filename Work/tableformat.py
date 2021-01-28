@@ -26,7 +26,7 @@ class TextTableFormatter(TableFormatter):
 
     def row(self, rowdata):
         for data in rowdata:
-            print(f'{data:10s}', end=' ')
+            print(f'{data:>10s}', end=' ')
         print()
 
 
@@ -47,4 +47,14 @@ def create_formatter(name):
     elif name == "csv":
         return CSVTableFormatter()
     else:
-        raise RuntimeError("Unknown format {frmt}")
+        raise RuntimeError("Unknown format {name}")
+
+
+def print_table(inventoryobj, columnslist, formatter):
+    formatter.headings(columnslist)
+    for obj in inventoryobj:
+        # data = [str(getattr(obj, column)) for column in columnslist]
+        data = []
+        for column in columnslist:
+            data.append(str(getattr(obj, column)))
+        formatter.row(data)
