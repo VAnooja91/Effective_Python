@@ -14,7 +14,7 @@ class Product:
         self.price = price
 
     def __repr__(self):
-        return f'Product({self.name!r}, {self.quant}, {self.price})'
+        return f'Product({self.name!r}, {self.quant}, {self.price!r})'
 
     @property
     def cost(self):
@@ -23,6 +23,16 @@ class Product:
         :return: int of cost
         '''
         return self.quant * self.price
+
+    @property
+    def quant(self):
+        return self._quant
+
+    @quant.setter
+    def quant(self, value):
+        if not isinstance(value, int):
+            raise TypeError("Expected an int")
+        self._quant = value
 
     def sell(self, sold_quantity):
         '''
