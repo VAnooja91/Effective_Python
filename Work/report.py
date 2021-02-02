@@ -1,13 +1,14 @@
 from fileparse import parse_csv
 from product import Product
 from tableformat import create_formatter, print_table
+from inventory import Inventory
 
 
 def read_inventory(filename):
     with open(filename) as FH:
         invent = parse_csv(FH, select=['name', 'quant', 'price'], types=[str, int, float])
         prodinv = [Product(p['name'], p['quant'], p['price']) for p in invent]
-    return prodinv
+    return Inventory(prodinv)
 
 
 def read_prices(filename):
