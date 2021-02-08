@@ -7,7 +7,7 @@ from inventory import Inventory
 def read_inventory(filename):
     with open(filename) as FH:
         invent = parse_csv(FH, select=['name', 'quant', 'price'], types=[str, int, float])
-        prodinv = [Product(p['name'], p['quant'], p['price']) for p in invent]
+        prodinv = [Product(**p) for p in invent]
     return Inventory(prodinv)
 
 
