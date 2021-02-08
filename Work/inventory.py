@@ -13,7 +13,7 @@ class Inventory:
         return self._products[index]
 
     def __contains__(self, name):
-        return any([p.name == name for p in self._products])
+        return any(p.name == name for p in self._products)
 
     @property
     def total_cost(self):
@@ -21,7 +21,7 @@ class Inventory:
         to calculate the total cost as an attribute
         :return: int
         '''
-        return sum([p.cost for p in self._products])
+        return sum(p.cost for p in self._products)
 
     def total_quant(self):
         from collections import Counter
@@ -29,4 +29,3 @@ class Inventory:
         for p in self._products:
             total_units[p.name] += p.quant
         return total_units
-
