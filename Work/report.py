@@ -47,8 +47,14 @@ def inventory_report(inventory, latest_prices, fmt='txt'):
 
 
 def main(argv):
+    import logging
+    logging.basicConfig(
+        filename='report.log',
+        filemode='wa',
+        level=logging.DEBUG
+    )
     if len(argv) != 4:
-        raise SystemExit(f'Usage:{argv[0]}''inventory latest_prices formatter')
+        raise SystemExit(f'Usage:{argv[0]} ''inventory latest_prices formatter')
     inventory = argv[1]
     latest_prices = argv[2]
     formatter = argv[3]
