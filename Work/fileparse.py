@@ -1,4 +1,6 @@
 import csv
+import logging
+logger = logging.getLogger(__name__)
 
 
 def parse_csv(lines, select=None, types=None, has_headers=True, delimiter=',', silence_errors=False):
@@ -31,8 +33,8 @@ def parse_csv(lines, select=None, types=None, has_headers=True, delimiter=',', s
                 row = [typefunc(val) for typefunc, val in zip(types, row)]
             except ValueError as e:
                 if not silence_errors:
-                    print("Row {}: couldn't convert {}".format(lineno, row))
-                    print("Row {}: Reason {}".format(lineno, e))
+                    logger.warning("Row %d: couldn't convert: %s", lineno, row)
+                    logger.debug("Row %d: Reason: %s", lineno, e)
                 continue
         if has_headers:
             data = dict(zip(headers, row))
