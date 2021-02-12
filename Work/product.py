@@ -1,8 +1,17 @@
+from typedproperty import typedproperty
+
 
 class Product:
     '''
     Class to represent a product consisting of name, quant and price
     '''
+
+    name = typedproperty('name', str)
+    quant = typedproperty('quant', int)
+    price = typedproperty('price', float)
+
+    # __slots__ = ('name', '_quant', 'price')
+
     def __init__(self, name, quant, price):
         '''
         :param name:
@@ -23,16 +32,6 @@ class Product:
         :return: int of cost
         '''
         return self.quant * self.price
-
-    @property
-    def quant(self):
-        return self._quant
-
-    @quant.setter
-    def quant(self, value):
-        if not isinstance(value, int):
-            raise TypeError("Expected an int")
-        self._quant = value
 
     def sell(self, sold_quantity):
         '''
